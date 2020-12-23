@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 
 public class BallScript : MonoBehaviour
 {
@@ -21,6 +23,7 @@ public class BallScript : MonoBehaviour
     void Update()
     {
         CheckInput();
+        CheckBallPosition();
     }
 
     private void FixedUpdate()
@@ -60,7 +63,18 @@ public class BallScript : MonoBehaviour
         }
     }
 
-
+    private void CheckBallPosition()
+    {
+        if (GameplayController.instance.gamePlaying)
+        {
+            if (transform.position.y < -5f)
+            {
+                GameplayController.instance.gamePlaying = false;
+                Destroy(gameObject);
+                SceneManager.LoadScene(0);
+            }
+        }
+    }
 
 } //class
 

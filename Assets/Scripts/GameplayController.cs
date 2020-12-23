@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameplayController : MonoBehaviour
 {
@@ -13,9 +14,16 @@ public class GameplayController : MonoBehaviour
     [SerializeField]
     private GameObject tile;
     private Vector3 currentTilePosition;
+    private AudioSource gemCollectSound;
+
+    [SerializeField]
+    private Text scoreText;
+
+    private int score = 0;
 
     void Awake()
     {
+        gemCollectSound = GetComponent<AudioSource>();
         MakeSingleton();
         currentTilePosition = new Vector3(-2,0,2);
     }
@@ -80,6 +88,22 @@ public class GameplayController : MonoBehaviour
         }
     }
 
+
+    public void PlayGemSound()
+    {
+        gemCollectSound.Play(); ;
+    }
+
+
+    public void IncreaseScore()
+    {
+        if (gamePlaying)
+        {
+            score++;
+            print(score);
+            scoreText.text = score.ToString();
+        }
+    }
 
 } //class
 
